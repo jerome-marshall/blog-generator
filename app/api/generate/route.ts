@@ -4,15 +4,14 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const body = await req.json();
 
-  const wordCount = 200;
+  const wordCount = 400;
 
   const payload: OpenAIStreamPayload = {
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: "system",
-        content:
-          "You are an expert in writting blogs about Real Esate/property-Buying/Selling/Renting. The user will give you the title/description about the blog. You should write the blog. Dont reply to any questions and start writing the blog. Write in markdown with proper headings",
+        content: `You are an expert in writting blogs about Real Esate/property-Buying/Selling/Renting. The user will give you the title/description about the blog. You should write the blog. Dont reply to any questions and start writing the blog. Write in markdown with proper headings, sub-headings and within ${wordCount} words`,
       },
       {
         role: "user",
