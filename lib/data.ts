@@ -5,20 +5,17 @@ export const keywordOptions = [
   { value: "Selling", label: "Selling" },
   { value: "Renting", label: "Renting" },
   { value: "New Home", label: "New Home" },
+  { value: "Tourism", label: "Tourism" },
+  { value: "Investment", label: "Investment" },
+  { value: "Investor", label: "Investor" },
   { value: "Home", label: "Home" },
-  { value: "House", label: "House" },
-  { value: "Apartment", label: "Apartment" },
-  { value: "Condo", label: "Condo" },
-  { value: "Townhouse", label: "Townhouse" },
-  { value: "Mortgage", label: "Mortgage" },
   { value: "Foreclosure", label: "Foreclosure" },
   { value: "Agent", label: "Agent" },
   { value: "Broker", label: "Broker" },
   { value: "Realtor", label: "Realtor" },
   { value: "Realty", label: "Realty" },
   { value: "Listing", label: "Listing" },
-  { value: "Zillow", label: "Zillow" },
-]
+];
 
 export const toneOptions = [
   { label: "😊 Friendly", value: "Friendly" },
@@ -33,4 +30,4 @@ export const toneOptions = [
   { label: "💪 Bold", value: "Bold" },
   { label: "💡 Witty", value: "Witty" },
   { label: "🧠 Persuasive", value: "Persuasive" },
-]
+];

@@ -19,16 +19,34 @@
 
 @layer components {
   .input-label {
-    @apply inline text-base font-medium text-gray-700 min-w-[120px];
+    @apply inline min-w-[120px] text-base font-medium text-gray-700;
   }
 
   .btn {
-    @apply bg-slate-900 text-slate-100 h-10 flex justify-center items-center px-4 rounded-xl;
+    @apply flex h-10 items-center justify-center rounded-xl bg-slate-900 px-4 text-slate-100;
     @apply hover:bg-slate-400 hover:text-slate-950;
   }
 
   input {
     @apply !shadow-none !ring-0;
+  }
+
+  .generated-text {
+    > * + * {
+      @apply mt-4;
+    }
+
+    h1 {
+      @apply mb-6 text-center text-3xl font-bold;
+    }
+
+    h2 {
+      @apply mt-5 text-2xl font-bold;
+    }
+
+    p {
+      @apply text-base font-medium;
+    }
   }
 }
 
