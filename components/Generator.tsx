@@ -1,3 +1,5 @@
+"use client";
+
 import { keywordOptions, toneOptions } from "@/lib/data";
 import { useMutation } from "@tanstack/react-query";
 import React, { FC } from "react";
