@@ -15,11 +15,15 @@ export async function POST(req: NextRequest) {
       {
         role: "system",
         content:
-          "You are an expert in writting blogs about Real Esate/property - Buying/Selling/Renting. The user will give you the title/description about the blog. You should write the blog. Dont reply to any questions, just start writing the blog.",
+          "You are an expert in writting blogs about Real Esate/property - Buying/Selling/Renting. The user will give you the title/description about the blog. You should write the blog. Dont reply to any questions and start writing the blog. Write it in HTML format with proper headings.",
       },
       {
         role: "user",
-        content: `Write a blog post on “${body.title}”. Write it in a “${body.tone}” tone. Use transition words. Write over 100 words. it should be written as a news story. Include the following keywords: “${body.keywords}”. Create a good slug for this post and a meta description with a maximum of 100 words. and add it to the end of the blog post`,
+        content: `Write a blog post on “${body.title}”. Write it in a “${
+          body.tone
+        }” tone. Use transition words. Write over 400 words. it should be written as a news story and includes the following keywords: “${
+          body.keywords
+        }”. ${body.description ? body.description : ""}`,
       },
     ],
     temperature: 0,

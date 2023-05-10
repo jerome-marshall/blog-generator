@@ -4,22 +4,24 @@ import React, { FC } from "react"
 import Select from "react-select"
 import CreatableSelect from "react-select/creatable"
 import Input from "./ui/Input"
+import parse from "react-html-parser"
 
 const getData = async (props) => {
   console.log("🚀 ~ file: Generator.tsx:8 ~ getData ~ props:", props)
-  // const response = await fetch("http://localhost:3000/api/generate", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     title: props.title,
-  //     keywords: props.keywords,
-  //     tone: props.tone,
-  //   }),
-  // })
-  // const data = await response.json()
-  // return data
+  const response = await fetch("http://localhost:3000/api/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title: props.title,
+      keywords: props.keywords,
+      tone: props.tone,
+      description: props.description,
+    }),
+  })
+  const data = await response.json()
+  return data
 }
 
 interface GeneratorProps {}
@@ -67,9 +69,10 @@ const Generator: FC<GeneratorProps> = ({}) => {
             onChange={(e) => setTone(e)}
           />
         </div>
-        <div className="flex items-center">
+        <div className="flex items-start">
           <p className="input-label">Description: </p>
-          <Input
+          <textarea
+            className="border border-gray-300 rounded-md px-4 py-2 text-slate-700 min-w-[500px] min-h-[120px]"
             placeholder="Enter your description here"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -79,12 +82,9 @@ const Generator: FC<GeneratorProps> = ({}) => {
       </div>
       <div className="border-t border-slate-300 mt-4">
         <div className="text-slate-700 mt-4 bg-slate-100 p-5 rounded-lg">
-          <p>asdasdas</p>
-          {data?.message?.choices?.map((choice) => (
-            <>
-              <p>{choice?.message?.content}</p>
-            </>
-          ))}
+          {data?.message?.choices?.map((choice) =>
+            parse(choice?.message?.content || "")
+          )}
         </div>
         <button
           className="btn mt-4 mx-auto min-w-[120px]"
@@ -97,6 +97,7 @@ const Generator: FC<GeneratorProps> = ({}) => {
               title,
               keywords: keywordsString,
               tone: tone?.value,
+              description,
             })
           }}
         >
