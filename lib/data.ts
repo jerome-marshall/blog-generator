@@ -30,4 +30,4 @@ export const toneOptions = [
   { label: "💪 Bold", value: "Bold" },
   { label: "💡 Witty", value: "Witty" },
   { label: "🧠 Persuasive", value: "Persuasive" },
-];
+]

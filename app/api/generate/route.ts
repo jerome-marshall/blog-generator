@@ -1,15 +1,12 @@
+import { OpenAIStream, OpenAIStreamPayload } from "@/lib/openai-stream";
 import { NextRequest, NextResponse } from "next/server";
-import { Configuration, OpenAIApi } from "openai";
-
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
 
-  const response = await openai.createChatCompletion({
+  const wordCount = 100;
+
+  const payload: OpenAIStreamPayload = {
     model: "gpt-3.5-turbo",
     messages: [
       {
@@ -21,15 +18,26 @@ export async function POST(req: NextRequest) {
         role: "user",
         content: `Write a blog post on “${body.title}”. Write it in a “${
           body.tone
-        }” tone. Use transition words. Write about 100 words. it should be written as a news story and includes the following keywords: “${
+        }” tone. Use transition words. Write about ${wordCount} words. it should be written as a news story and includes the following keywords: “${
           body.keywords
         }”. ${body.description ? body.description : ""}`,
       },
     ],
+    top_p: 1,
     temperature: 0,
-  });
+    frequency_penalty: 0,
+    presence_penalty: 0,
+    max_tokens: 2000,
+    stream: true,
+    n: 1,
+  };
 
-  const data = await response.data;
+  const stream = await OpenAIStream(payload);
 
-  return new NextResponse(JSON.stringify({ message: data }));
+  // const response = await openai.createChatCompletion(payload);
+
+  // const data = await response.data;
+
+  // return new NextResponse(JSON.stringify({ message: data }));
+  return new NextResponse(stream);
 }

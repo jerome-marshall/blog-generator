@@ -7,7 +7,6 @@ import Input from "./ui/Input";
 import parse from "react-html-parser";
 
 const getData = async (props) => {
-  console.log("🚀 ~ file: Generator.tsx:8 ~ getData ~ props:", props);
   const response = await fetch("http://localhost:3000/api/generate", {
     method: "POST",
     headers: {
@@ -20,19 +19,35 @@ const getData = async (props) => {
       description: props.description,
     }),
   });
-  const data = await response.json();
-  return data;
+  // const data = await response.json();
+  return response.body;
 };
 
 interface GeneratorProps {}
 
 const Generator: FC<GeneratorProps> = ({}) => {
+  const [generatedText, setGeneratedText] = React.useState("");
+
   const { mutate, data, isSuccess, reset } = useMutation({
     mutationFn: getData,
+    onSuccess: async (stream) => {
+      if (!stream) throw new Error("No stream");
+      setGeneratedText("");
+
+      const reader = stream.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
+        setGeneratedText((prev) => prev + chunkValue);
+      }
+    },
   });
 
   const [title, setTitle] = React.useState("");
-  console.log("🚀 ~ file: Generator.tsx:35 ~ title:", title);
   const [keywords, setKeywords] = React.useState(null);
   const [tone, setTone] = React.useState(null);
   const [description, setDescription] = React.useState("");
@@ -80,11 +95,9 @@ const Generator: FC<GeneratorProps> = ({}) => {
         </div>
       </div>
       <div className="mt-4 border-t border-slate-300">
-        {isSuccess && (
+        {generatedText && (
           <div className=" generated-text mt-4 rounded-lg bg-slate-100 p-5 text-slate-700">
-            {data?.message?.choices?.map((choice) =>
-              parse(choice?.message?.content || "")
-            )}
+            {parse(generatedText || "Loading...")}
           </div>
         )}
         <div className="mx-auto mt-4 flex w-fit">
@@ -105,7 +118,7 @@ const Generator: FC<GeneratorProps> = ({}) => {
           >
             Generate
           </button>
-          {isSuccess && (
+          {isSuccess && generatedText (
             <button
               className="btn ml-2 min-w-[120px]"
               onClick={() => {
@@ -114,6 +127,7 @@ const Generator: FC<GeneratorProps> = ({}) => {
                 setTone(null);
                 setDescription("");
                 reset();
+                setGeneratedText("")
               }}
             >
               Reset
