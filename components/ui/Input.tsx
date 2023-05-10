@@ -7,7 +7,7 @@ const Input: FC<InputProps> = ({ className, ...props }) => {
   return (
     <input
       className={cn(
-        "rounded-md border border-gray-300 px-4 py-2 text-slate-700",
+        "min-w-full rounded-md border border-gray-300 px-4 py-2 text-slate-700",
         className
       )}
       {...props}

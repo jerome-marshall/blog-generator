@@ -72,19 +72,19 @@ const Generator: FC<GeneratorProps> = ({}) => {
   return (
     <div className="mt-10">
       <div className="flex flex-col gap-2">
-        <div className="flex items-center">
+        <div className="flex flex-col items-start md:flex-row md:items-center">
           <p className="input-label">Title: </p>
           <Input
-            className="min-w-[500px]"
+            className="md:min-w-[500px]"
             placeholder="Enter your title here..."
             value={title}
             onChange={(e) => setTitle((e?.target as HTMLInputElement).value)}
           />
         </div>
-        <div className="flex items-center">
+        <div className="flex flex-col items-start md:flex-row md:items-center">
           <p className="input-label">Keywords: </p>
           <CreatableSelect
-            className="min-w-[300px]"
+            className="min-w-full md:min-w-[300px]"
             isMulti
             options={keywordOptions}
             value={keywords}
@@ -92,19 +92,19 @@ const Generator: FC<GeneratorProps> = ({}) => {
             placeholder="Select or type your own..."
           />
         </div>
-        <div className="flex items-center">
+        <div className="flex flex-col items-start md:flex-row md:items-center">
           <p className="input-label">Tone: </p>
           <Select
-            className="min-w-[200px]"
+            className="min-w-full md:min-w-[200px]"
             options={toneOptions}
             value={tone}
             onChange={(e) => setTone(e)}
           />
         </div>
-        <div className="flex items-start">
+        <div className="flex flex-col items-start md:flex-row md:items-center">
           <p className="input-label">Description: </p>
           <textarea
-            className="min-h-[120px] min-w-[500px] rounded-md border border-gray-300 px-4 py-2 text-slate-700"
+            className="min-h-[120px] min-w-full rounded-md border border-gray-300 px-4 py-2 text-slate-700 md:min-w-[500px]"
             placeholder="Enter your description here..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
