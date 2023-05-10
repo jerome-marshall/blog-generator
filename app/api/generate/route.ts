@@ -27,7 +27,6 @@ export async function POST(req: NextRequest) {
     temperature: 0.5,
     frequency_penalty: 0,
     presence_penalty: 0,
-    max_tokens: 3000,
     stream: true,
     n: 1,
   };
