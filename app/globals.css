@@ -19,7 +19,7 @@
 
 @layer components {
   .input-label {
-    @apply inline text-base font-medium text-gray-700 md:min-w-[120px] mb-1 md:mb-0;
+    @apply mb-1 inline text-base font-medium text-gray-700 md:mb-0 md:min-w-[120px];
   }
 
   .btn {
@@ -37,15 +37,15 @@
     }
 
     h1 {
-      @apply mb-6 text-center text-3xl font-bold;
+      @apply mb-6 text-center text-2xl font-bold text-slate-900 md:text-3xl;
     }
 
     h2 {
-      @apply mt-5 text-2xl font-bold;
+      @apply mt-5 text-2xl font-bold text-slate-900;
     }
 
     h3 {
-      @apply mt-4 text-xl font-bold;
+      @apply mt-4 text-xl font-bold text-slate-900;
     }
 
     p {
