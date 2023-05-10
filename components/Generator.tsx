@@ -5,6 +5,8 @@ import Select, { MultiValue, SingleValue } from "react-select";
 import CreatableSelect from "react-select/creatable";
 import Input from "./ui/Input";
 import parse from "react-html-parser";
+import LoadingIcon from "./ui/LoadingIcon";
+import { cn } from "@/lib/utils";
 
 const getData = async (props: {
   title: string;
@@ -33,7 +35,7 @@ interface GeneratorProps {}
 const Generator: FC<GeneratorProps> = ({}) => {
   const [generatedText, setGeneratedText] = React.useState("");
 
-  const { mutate, data, isSuccess, reset } = useMutation({
+  const { mutate, isSuccess, reset, isLoading } = useMutation({
     mutationFn: getData,
     onSuccess: async (stream) => {
       if (!stream) throw new Error("No stream");
@@ -70,7 +72,7 @@ const Generator: FC<GeneratorProps> = ({}) => {
           <p className="input-label">Title: </p>
           <Input
             className="min-w-[500px]"
-            placeholder="Enter your title here"
+            placeholder="Enter your title here..."
             value={title}
             onChange={(e) => setTitle((e?.target as HTMLInputElement).value)}
           />
@@ -83,6 +85,7 @@ const Generator: FC<GeneratorProps> = ({}) => {
             options={keywordOptions}
             value={keywords}
             onChange={(e) => setKeywords(e)}
+            placeholder="Select or type your own..."
           />
         </div>
         <div className="flex items-center">
@@ -98,7 +101,7 @@ const Generator: FC<GeneratorProps> = ({}) => {
           <p className="input-label">Description: </p>
           <textarea
             className="min-h-[120px] min-w-[500px] rounded-md border border-gray-300 px-4 py-2 text-slate-700"
-            placeholder="Enter your description here"
+            placeholder="Enter your description here..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -113,7 +116,10 @@ const Generator: FC<GeneratorProps> = ({}) => {
         )}
         <div className="mx-auto mt-4 flex w-fit">
           <button
-            className="btn   min-w-[120px]"
+            className={cn(
+              "btn flex min-w-[120px] items-center",
+              isLoading && "pointer-events-none opacity-70"
+            )}
             onClick={() => {
               const keywordsString = keywords
                 ?.map((keyword) => keyword.value)
@@ -127,7 +133,8 @@ const Generator: FC<GeneratorProps> = ({}) => {
               });
             }}
           >
-            Generate
+            {isLoading ? <span>Generating...</span> : <span>Generate</span>}
+            {isLoading && <LoadingIcon className="ml-2" />}
           </button>
           {isSuccess && generatedText && (
             <button
