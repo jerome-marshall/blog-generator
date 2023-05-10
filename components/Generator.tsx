@@ -6,9 +6,9 @@ import React, { FC } from "react";
 import Select, { MultiValue, SingleValue } from "react-select";
 import CreatableSelect from "react-select/creatable";
 import Input from "./ui/Input";
-import parse from "react-html-parser";
 import LoadingIcon from "./ui/LoadingIcon";
 import { cn } from "@/lib/utils";
+import ReactMarkdown from "react-markdown";
 
 const getData = async (props: {
   title: string;
@@ -115,7 +115,7 @@ const Generator: FC<GeneratorProps> = ({}) => {
       <div className="mt-4 border-t border-slate-300">
         {generatedText && (
           <div className=" generated-text mt-4 rounded-lg bg-slate-100 p-5 text-slate-700">
-            {parse(generatedText || "Loading...")}
+            <ReactMarkdown>{generatedText || "Loading..."}</ReactMarkdown>
           </div>
         )}
         <div className="mx-auto mt-4 flex w-fit">
