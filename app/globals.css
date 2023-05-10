@@ -21,10 +21,24 @@
   .input-label {
     @apply inline text-base font-medium text-gray-700 min-w-[120px];
   }
+
+  .btn {
+    @apply bg-slate-900 text-slate-100 h-10 flex justify-center items-center px-4 rounded-xl;
+    @apply hover:bg-slate-400 hover:text-slate-950;
+  }
+
+  input {
+    @apply !shadow-none !ring-0;
+  }
 }
 
 body {
   font-family: "Inter", sans-serif;
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  color: theme(colors.slate.700);
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
