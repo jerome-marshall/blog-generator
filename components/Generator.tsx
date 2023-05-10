@@ -137,7 +137,13 @@ const Generator: FC<GeneratorProps> = ({}) => {
               });
             }}
           >
-            {isLoading ? <span>Generating...</span> : <span>Generate</span>}
+            {isLoading ? (
+              <span>Generating...</span>
+            ) : isSuccess ? (
+              <span>Generate again</span>
+            ) : (
+              <span>Generate</span>
+            )}
             {isLoading && <LoadingIcon className="ml-2" />}
           </button>
           {isSuccess && generatedText && (

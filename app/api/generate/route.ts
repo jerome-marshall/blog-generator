@@ -12,22 +12,22 @@ export async function POST(req: NextRequest) {
       {
         role: "system",
         content:
-          "You are an expert in writting blogs about Real Esate/property-Buying/Selling/Renting. The user will give you the title/description about the blog. You should write the blog. Dont reply to any questions and start writing the blog. Write in HTML with proper HTML tags. Dont respond if the topic isnt related to property/real estate.",
+          "You are an expert in writting blogs about Real Esate/property-Buying/Selling/Renting. The user will give you the title/description about the blog. You should write the blog. Dont reply to any questions and start writing the blog. Write in HTML with proper HTML tags.",
       },
       {
         role: "user",
         content: `Write a blog post on “${body.title}”. Write it in a “${
           body.tone
-        }” tone. Use transition words. Write about ${wordCount} words. it should be written as a news story and includes the following keywords: “${
+        }” tone.  Write about ${wordCount} words, and use transition words and a conclusion. it should be written as a news story and includes the following keywords: “${
           body.keywords
         }”. ${body.description ? body.description : ""}`,
       },
     ],
     top_p: 1,
-    temperature: 0,
+    temperature: 0.5,
     frequency_penalty: 0,
     presence_penalty: 0,
-    max_tokens: 4000,
+    max_tokens: 3000,
     stream: true,
     n: 1,
   };
