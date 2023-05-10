@@ -31,7 +31,6 @@ const getData = async (props: {
       }),
     }
   );
-  // const data = await response.json();
   return response.body;
 };
 
