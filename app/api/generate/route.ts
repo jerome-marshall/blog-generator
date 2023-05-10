@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
         role: "user",
         content: `Write a blog post on “${body.title}”. Write it in a “${
           body.tone
-        }” tone. Use transition words. Write over 50 words. it should be written as a news story and includes the following keywords: “${
+        }” tone. Use transition words. Write about 100 words. it should be written as a news story and includes the following keywords: “${
           body.keywords
         }”. ${body.description ? body.description : ""}`,
       },

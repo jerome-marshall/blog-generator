@@ -87,7 +87,7 @@ const Generator: FC<GeneratorProps> = ({}) => {
             )}
           </div>
         )}
-        <div className="mx-auto mt-4">
+        <div className="mx-auto mt-4 flex w-fit">
           <button
             className="btn   min-w-[120px]"
             onClick={() => {
@@ -105,18 +105,20 @@ const Generator: FC<GeneratorProps> = ({}) => {
           >
             Generate
           </button>
-          <button
-            className="btn ml-2 min-w-[120px]"
-            onClick={() => {
-              setTitle("");
-              setKeywords(null);
-              setTone(null);
-              setDescription("");
-              reset();
-            }}
-          >
-            Reset
-          </button>
+          {isSuccess && (
+            <button
+              className="btn ml-2 min-w-[120px]"
+              onClick={() => {
+                setTitle("");
+                setKeywords(null);
+                setTone(null);
+                setDescription("");
+                reset();
+              }}
+            >
+              Reset
+            </button>
+          )}
         </div>
       </div>
     </div>
