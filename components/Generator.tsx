@@ -1,12 +1,17 @@
 import { keywordOptions, toneOptions } from "@/lib/data";
 import { useMutation } from "@tanstack/react-query";
 import React, { FC } from "react";
-import Select from "react-select";
+import Select, { MultiValue, SingleValue } from "react-select";
 import CreatableSelect from "react-select/creatable";
 import Input from "./ui/Input";
 import parse from "react-html-parser";
 
-const getData = async (props) => {
+const getData = async (props: {
+  title: string;
+  keywords?: string;
+  tone?: string;
+  description: string;
+}) => {
   const response = await fetch("http://localhost:3000/api/generate", {
     method: "POST",
     headers: {
@@ -48,8 +53,14 @@ const Generator: FC<GeneratorProps> = ({}) => {
   });
 
   const [title, setTitle] = React.useState("");
-  const [keywords, setKeywords] = React.useState(null);
-  const [tone, setTone] = React.useState(null);
+  const [keywords, setKeywords] = React.useState<MultiValue<{
+    value: string;
+    label: string;
+  }> | null>(null);
+  const [tone, setTone] = React.useState<SingleValue<{
+    value: string;
+    label: string;
+  }> | null>(null);
   const [description, setDescription] = React.useState("");
 
   return (
@@ -61,7 +72,7 @@ const Generator: FC<GeneratorProps> = ({}) => {
             className="min-w-[500px]"
             placeholder="Enter your title here"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setTitle((e?.target as HTMLInputElement).value)}
           />
         </div>
         <div className="flex items-center">
@@ -118,7 +129,7 @@ const Generator: FC<GeneratorProps> = ({}) => {
           >
             Generate
           </button>
-          {isSuccess && generatedText (
+          {isSuccess && generatedText && (
             <button
               className="btn ml-2 min-w-[120px]"
               onClick={() => {
@@ -127,7 +138,7 @@ const Generator: FC<GeneratorProps> = ({}) => {
                 setTone(null);
                 setDescription("");
                 reset();
-                setGeneratedText("")
+                setGeneratedText("");
               }}
             >
               Reset
