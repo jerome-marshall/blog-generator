@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const body = await req.json();
 
-  const wordCount = 400;
+  const wordCount = 300;
 
   const payload: OpenAIStreamPayload = {
     model: "gpt-3.5-turbo",
