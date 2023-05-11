@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     messages: [
       {
         role: "system",
-        content: `You are an expert in writting blogs about Real Esate/property-Buying/Selling/Renting. The user will give you the title/description about the blog. You should write the blog. Dont reply to any questions and start writing the blog. Write in markdown with proper headings, sub-headings and within ${wordCount} words`,
+        content: `You are an expert in writting blogs/news articles. The user will give you the title/description about the blog. You should write the blog. Dont reply to any questions and start writing the blog. Write in markdown with proper headings, sub-headings and within ${wordCount} words`,
       },
       {
         role: "user",
