@@ -17,7 +17,7 @@ const getData = async (props: {
   description: string;
 }) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/generate`,
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/generateV2`,
     {
       method: "POST",
       headers: {

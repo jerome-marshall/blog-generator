@@ -32,10 +32,5 @@ export async function POST(req: NextRequest) {
 
   const stream = await OpenAIStream(payload);
 
-  // const response = await openai.createChatCompletion(payload);
-
-  // const data = await response.data;
-
-  // return new NextResponse(JSON.stringify({ message: data }));
   return new NextResponse(stream);
 }
