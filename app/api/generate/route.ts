@@ -11,15 +11,15 @@ export async function POST(req: NextRequest) {
     messages: [
       {
         role: "system",
-        content: `You are an expert in writting blogs/news articles. The user will give you the title/description about the blog. You should write the blog. Dont reply to any questions and start writing the blog. Write in markdown with proper headings, sub-headings.`,
+        content: `You are an expert in writting blogs/news articles. The user will give you the title/description about the blog. You should write the blog. Dont reply to any questions and start writing the blog. Write in markdown with proper headings, sub-headings. If the topic/description/keywords is not given or is not clear, ask the user to clarify.`,
       },
       {
         role: "user",
-        content: `Write a blog post on “${body.title}”. Write it in a “${
-          body.tone
+        content: `Write a blog post on “${body.title || ""}”. Write it in a “${
+          body.tone || "neutral"
         }” tone. Use transition words. it should be written as a news story and includes the following keywords: “${
-          body.keywords
-        }”. ${body.description ? body.description : ""}`,
+          body.keywords || ""
+        }”. ${body.description || ""}`,
       },
     ],
     top_p: 1,
@@ -30,12 +30,18 @@ export async function POST(req: NextRequest) {
     n: 1,
   };
 
-  const stream = await OpenAIStream(payload);
+  try {
+    const stream = await OpenAIStream(payload);
 
-  // const response = await openai.createChatCompletion(payload);
+    // const response = await openai.createChatCompletion(payload);
 
-  // const data = await response.data;
+    // const data = await response.data;
 
-  // return new NextResponse(JSON.stringify({ message: data }));
-  return new NextResponse(stream);
+    // return new NextResponse(JSON.stringify({ message: data }));
+    return new NextResponse(stream);
+  } catch (error) {
+    console.log("🚀 ~ file: route.ts:44 ~ POST ~ error:", error);
+
+    return new NextResponse(JSON.stringify({ message: error }));
+  }
 }
