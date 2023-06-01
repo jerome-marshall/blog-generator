@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     messages: [
       {
         role: "system",
-        content: `You are an expert in writting blogs/news articles. The user will give you the title/description about the blog. You should write the blog. Dont reply to any questions and start writing the blog. Write in markdown with proper headings, sub-headings. If the topic/description/keywords is not given or is not clear, ask the user to clarify.`,
+        content: `You are an expert in writting blogs/news articles. The user will give you the title/description about the blog. You should write the blog not less than 500 words. Dont reply to any questions and start writing the blog. Write in markdown with proper headings, sub-headings. If the topic/description/keywords is not given or is not clear, ask the user to clarify.`,
       },
       {
         role: "user",
